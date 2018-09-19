@@ -5,75 +5,58 @@ drop table Productos;
 /*CREANDO TABLA PRODUCTO*/
 create table Productos
 (
-IdProducto varchar(20) primary key not null,
-Descripcion varchar(20) not null,
-PrecioUnidad double not null,
-Stock int not null
+idProducto varchar(20) primary key not null,
+descripcion varchar(20) not null,
+precio varchar(20) not null,
+stock varchar(20) not null
 );
 
 /*CREANDO PROCEDIMIENTO ALMACENADO LISTADO*/
 delimiter //
-create procedure ListarProductos()
+create procedure listar_productos()
 begin
 select * from Productos;
 end; //
 
-call ListarProductos();
+call listar_productos();
 
-insert into Productos(IdProducto,Descripcion,PrecioUnidad,Stock) 
-values('PRO00001','Televisor',1500.00,10);
-insert into Productos(IdProducto,Descripcion,PrecioUnidad,Stock) 
-values('PRO00002','Lavadora',1800.00,15);
-insert into Productos(IdProducto,Descripcion,PrecioUnidad,Stock) 
-values('PRO00003','Refrigeradora',2200.00,5);
 
 /*CREANDO PROCEDIMIENTO ALMACENADO AGREGAR*/
 delimiter //
-create procedure AgregarProductos
+create procedure inserta_producto
 (
-IdProducto varchar(20),
-Descripcion varchar(20),
-PrecioUnidad double,
-Stock int
+id varchar(20),
+descr varchar(20),
+prec varchar(20),
+stk varchar(20)
 )
 begin
-insert into Productos(IdProducto,Descripcion,PrecioUnidad,Stock)values(IdProducto,Descripcion,PrecioUnidad,Stock);
-end;//
-
-call AgregarProductos('PRO00004','Play Station',4220.00,4);
+insert into Productos(idProducto, descripcion, precio, stock)values(id,descr,prec,stk);
+end; //
 
 /*CREANDO PROCEDIMIENTO ALMACENADO MODIFICAR*/
-drop procedure ModificarProductos;
 delimiter //
-create procedure ModificarProductos
+create procedure editar_producto
 (
-XIdProducto varchar(20),
-XDescripcion varchar(20),
-XPrecioUnidad double,
-XStock int
+id varchar(20),
+descr varchar(20),
+prec varchar(20),
+stk varchar(20)
 )
 begin
-update Productos set Descripcion=XDescripcion,PrecioUnidad=XPrecioUnidad,Stock=XStock where IdProducto=XIdProducto;
-end;//
-
-call ModificarProductos('PRO00001','Monitor',5000.00,15);
+update Productos set descripcion=descr,precio=prec,stock=stk where idProducto=id;
+end; //
 
 /*CREANDO PROCEDIMIENTO ALMACENADO ELIMINAR*/
 delimiter //
-create procedure EliminarProductos(
-XIdProducto varchar(20))
+create procedure elimina_producto(id varchar(20))
 begin
-	delete from Productos where IdProducto=XIdProducto;
-end;//
-
-call EliminarProductos('PRO00001');
+	delete from Productos where idProducto=id;
+end; //
 
 /*CREANDO PROCEDIMIENTO ALMACENADO BUSCAR*/
 delimiter //
-create procedure BuscarProductos(
-XIdProducto varchar(20))
+create procedure buscar_producto(id varchar(20))
 begin
-	select * from Productos where IdProducto = XIdProducto;
-end;//
-
-call BuscarProductos('PRO00002');
+	select * from Productos where idProducto = id;
+end; //
